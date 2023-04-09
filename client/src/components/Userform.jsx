@@ -16,6 +16,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin } from "../redux/index";
 import { useNavigate } from "react-router-dom";
+import { server } from "../server";
 
 const initialValuesRegister = {
   name: "",
@@ -54,11 +55,12 @@ const UserForm = () => {
 
   const user = useSelector((state)=>state.app.user);
   const navigate = useNavigate();
+  console.log(server);
 
   const register = async (values, onSubmit) => {
     setIsSubmitting(true);
     axios
-      .post("http://localhost:8000/users", values)
+      .post(`${server}/users`, values)
       .then((res) => {
         console.log(res);
         alert("Register Success");
@@ -76,7 +78,7 @@ const UserForm = () => {
 
     setIsSubmitting(true);
     axios
-      .post("http://localhost:8000/login", values)
+      .post(`${server}/login`, values)
       .then((res) => {
         // console.log(res.data.user);
         setIsSubmitting(false);
